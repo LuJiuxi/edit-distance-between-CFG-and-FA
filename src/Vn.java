@@ -18,6 +18,10 @@ public class Vn extends Variable{
         deductions.add(deduction);
     }
 
+    public ArrayList<ArrayList<Variable>> getDeductions() {
+        return deductions;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

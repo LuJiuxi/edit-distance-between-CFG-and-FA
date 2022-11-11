@@ -5,47 +5,33 @@
 // @Software: IntelliJ IDEA 
 // @Comment :
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 public class NFA {
-    private LinkedHashMap<String, State> states = new LinkedHashMap<>();
-    private final LinkedHashMap<String, Vt> vts = new LinkedHashMap<>();
-    private State startState;
-    private ArrayList<State> finalStates = new ArrayList<>();
+    private final LinkedHashSet<String> states = new LinkedHashSet<>();
+    private final LinkedHashSet<String> vts = new LinkedHashSet<>();
+    private final LinkedHashMap<String, String> nfa = new LinkedHashMap<>();
+    private String start;
+    private final LinkedHashSet<String> ends = new LinkedHashSet<>();
 
-    public LinkedHashMap<String, State> getStates() {
+    public LinkedHashSet<String> getStates() {
         return states;
     }
 
-    public LinkedHashMap<String, Vt> getVts() {
+    public LinkedHashSet<String> getVts() {
         return vts;
     }
 
-    public ArrayList<State> getFinalStates() {
-        return finalStates;
+    public LinkedHashMap<String, String> getNfa() {
+        return nfa;
     }
 
-    public void setStartState(State startState) {
-        this.startState = startState;
+    public void setStart(String start) {
+        this.start = start;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("STATEs:\n").append(states.keySet()).append('\n');
-        stringBuilder.append("VTs:\n").append(vts.keySet()).append('\n');
-        stringBuilder.append("STFs:\n");
-        for (String key: states.keySet()) {
-            stringBuilder.append(states.get(key).toString());
-            stringBuilder.append('\n');
-        }
-        stringBuilder.append("START:\n").append(startState.getName()).append('\n');
-        stringBuilder.append("FINAL:\n");
-        for (State finalSate: finalStates) {
-            stringBuilder.append(finalSate.getName());
-            stringBuilder.append(" ");
-        }
-        return stringBuilder.toString();
+    public LinkedHashSet<String> getEnds() {
+        return ends;
     }
 }

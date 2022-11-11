@@ -6,6 +6,8 @@
 // @Comment :
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 public class Tools {
     public static CFG initCFGFromFile(String path) {
@@ -100,13 +102,13 @@ public class Tools {
                 case 1:
                     String[] nfaStates = line.replaceAll("\\s", "").split(",");
                     for (String nfaState: nfaStates) {
-                        nfa.getStates().put(nfaState, new State(nfaState));
+                        nfa.getStates().add(nfaState);
                     }
                     break;
                 case 2:
                     String[] vts = line.replaceAll("\\s", "").split(",");
                     for (String vt: vts) {
-                        nfa.getVts().put(vt, new Vt(vt));
+                        nfa.getVts().add(vt);
                     }
                     break;
                 case 3:
@@ -120,23 +122,16 @@ public class Tools {
                     String inputStr = input[1];
                     String[] output = stf[1].substring(1, stf[1].length() - 1).split(",");
                     for (String endState: output) {
-                        Edge edge = new Edge(nfa.getStates().get(beginState),
-                                inputStr, nfa.getStates().get(endState));
-                        nfa.getStates().get(beginState).getEdges().add(edge);
+                        nfa.getNfa().put(genKey(beginState, endState), inputStr);
                     }
                     break;
                 case 4:
-                    nfa.setStartState(nfa.getStates().get(line.trim()));
+                    nfa.setStart(line.trim());
                     break;
                 case 5:
                     String[] finalStates = line.replaceAll("\\s", "").split(",");
                     for (String finalState: finalStates) {
-                        if (nfa.getStates().containsKey(finalState)) {
-                            nfa.getFinalStates().add(nfa.getStates().get(finalState));
-                        } else {
-                            System.out.println("NFA未定义的状态: " + finalState);
-                            System.exit(-1);
-                        }
+                        nfa.getEnds().add(finalState);
                     }
                     break;
             }
@@ -150,7 +145,7 @@ public class Tools {
         return nfa;
     }
 
-    private int cost(String str0, String str1) {
+    public static int cost(String str0, String str1) {
         int n = str0.length();
         int m = str1.length();
         char[] s = (" " + str0).toCharArray();
@@ -176,8 +171,33 @@ public class Tools {
         return d[n][m];
     }
 
-    public  FloydWarshall(NFA nfa) {
-
+    public static LinkedHashMap<String, Integer> floydWarshall(NFA nfa) {
+        LinkedHashMap<String, Integer> d = new LinkedHashMap<>();
+        LinkedHashSet<String> states = nfa.getStates();
+        LinkedHashMap<String, String> graph = nfa.getNfa();
+        for (String si: states) {
+            for (String sj: states) {
+                String key = genKey(si, sj);
+                if (graph.containsKey(key)) {
+                    d.put(key, graph.get(key).length());
+                } else {
+                    d.put(key, Integer.MAX_VALUE >> 2);
+                }
+            }
+        }
+        for (String sk: states) {
+            for (String si: states) {
+                for (String sj: states) {
+                    String sik = genKey(si, sk);
+                    String skj = genKey(sk, sj);
+                    String sij = genKey(si, sj);
+                    if (d.get(sik) + d.get(skj) < d.get(sij)) {
+                        d.put(sij, d.get(sik) + d.get(skj));
+                    }
+                }
+            }
+        }
+        return d;
     }
 
     public static int min(int... nums) {
@@ -186,6 +206,14 @@ public class Tools {
             if (min > nums[i]) min = nums[i];
         }
         return min;
+    }
+
+    public static String genKey(String q, String p) {
+        return q + '@' + p;
+    }
+
+    public static String genKey(String A, String q, String p) {
+        return A + '@' + q + '@' + p;
     }
 
 }

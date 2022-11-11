@@ -6,7 +6,7 @@
 // @Comment :
 
 public class Variable {
-    protected String name;
+    private final String name;
 
     public Variable(String name) {
         this.name = name;
