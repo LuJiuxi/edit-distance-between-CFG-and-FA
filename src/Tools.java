@@ -149,4 +149,43 @@ public class Tools {
         } while (end != 0);
         return nfa;
     }
+
+    private int cost(String str0, String str1) {
+        int n = str0.length();
+        int m = str1.length();
+        char[] s = (" " + str0).toCharArray();
+        char[] t = (" " + str1).toCharArray();
+        int[][] d = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                int c = 0;
+                if (s[i] != t[j]) c = 1;
+                int replace = d[i - 1][j - 1] + c;
+                int delete = d[i - 1][j] + 1;
+                int insert = d[i][j - 1] + 1;
+                int min = min(replace, delete, insert);
+                if (replace == min) {
+                    d[i][j] = replace;
+                } else if (insert == min) {
+                    d[i][j] = insert;
+                } else {
+                    d[i][j] = delete;
+                }
+            }
+        }
+        return d[n][m];
+    }
+
+    public  FloydWarshall(NFA nfa) {
+
+    }
+
+    public static int min(int... nums) {
+        int min = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (min > nums[i]) min = nums[i];
+        }
+        return min;
+    }
+
 }

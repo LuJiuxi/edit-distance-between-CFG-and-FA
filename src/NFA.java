@@ -7,7 +7,6 @@
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
 public class NFA {
     private LinkedHashMap<String, State> states = new LinkedHashMap<>();
