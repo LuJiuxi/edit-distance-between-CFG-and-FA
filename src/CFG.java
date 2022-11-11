@@ -37,4 +37,17 @@ public class CFG {
     public void setStart(String start) {
         this.start = vns.get(start);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("VN:\n").append(vns.keySet()).append('\n');
+        stringBuilder.append("VT:\n").append(vts.keySet()).append('\n');
+        stringBuilder.append("R:\n");
+        for (String key: vns.keySet()) {
+            stringBuilder.append(vns.get(key).toString());
+        }
+        stringBuilder.append("S:\n").append(start.getName());
+        return stringBuilder.toString();
+    }
 }

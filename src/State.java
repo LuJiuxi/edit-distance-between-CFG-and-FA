@@ -5,25 +5,34 @@
 // @Software: IntelliJ IDEA 
 // @Comment :
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class State {
     private String name;
+    private ArrayList<Edge> edges = new ArrayList<>();
 
     public State(String name) {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        State state = (State) o;
-        return Objects.equals(name, state.name);
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append('\t').append(name).append(":\n");
+        for (Edge edge: edges) {
+            stringBuilder.append('\t');
+            stringBuilder.append(edge.toString());
+        }
+        return stringBuilder.toString();
     }
 }

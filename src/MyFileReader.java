@@ -65,7 +65,7 @@ public class MyFileReader {
         StringBuilder stringBuilder = new StringBuilder();
         int c = getChar();
         if (c == -1) {
-            return null;
+            return "";
         }
         while (c != '\n') {
             if (c != '\r') {
