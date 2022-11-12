@@ -34,4 +34,8 @@ public class NFA {
     public LinkedHashSet<String> getEnds() {
         return ends;
     }
+
+    public String getStart() {
+        return start;
+    }
 }

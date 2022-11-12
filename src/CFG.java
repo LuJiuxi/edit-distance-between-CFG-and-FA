@@ -38,6 +38,10 @@ public class CFG {
         this.start = vns.get(start);
     }
 
+    public Vn getStart() {
+        return start;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

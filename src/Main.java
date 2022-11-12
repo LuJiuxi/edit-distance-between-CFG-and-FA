@@ -5,7 +5,6 @@
 // @Software: IntelliJ IDEA 
 // @Comment :
 
-import javax.tools.Tool;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -14,8 +13,9 @@ public class Main {
     public static void main(String[] args) {
         CFG cfg = Tools.initCFGFromFile("input.txt");
         NFA nfa = Tools.initNFAFromFile("input.txt");
-        LinkedHashMap<String, Integer> C = new LinkedHashMap<>();
-        LinkedHashMap<String, Integer> D = Tools.floydWarshall(nfa);
+
+        LinkedHashMap<String, Integer> Cost = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> Dst = Tools.floydWarshall(nfa);
         LinkedHashMap<String, String> nfaGraph = nfa.getNfa();
         LinkedHashSet<String> states = nfa.getStates();
         LinkedHashMap<String, Vn> vns = cfg.getVns();
@@ -23,7 +23,7 @@ public class Main {
         for (String q: states) {
             for (String p: states) {
                 for (String A: vns.keySet()) {
-                    C.put(Tools.genKey(A, q, p), Integer.MAX_VALUE >> 2);
+                    Cost.put(Tools.genKey(A, q, p), Integer.MAX_VALUE >> 2);
                 }
             }
         }
@@ -38,7 +38,7 @@ public class Main {
                     if (deduction.size() == 1 && variable instanceof Vt) {
                         String b = variable.getName();
                         int min = Tools.min(Tools.cost(a, b), a.length() + b.length());
-                        C.put(Tools.genKey(keyA, keyQP), min);
+                        Cost.put(Tools.genKey(keyA, keyQP), min);
                     }
                 }
             }
@@ -51,11 +51,11 @@ public class Main {
                         String Aqp = Tools.genKey(A, q, p);
                         String Arp = Tools.genKey(A, r, p);
                         String qr = Tools.genKey(q, r);
-                        int CAqp = C.get(Aqp);
-                        int Dqr = D.get(qr);
-                        int CArp = C.get(Arp);
+                        int CAqp = Cost.get(Aqp);
+                        int Dqr = Dst.get(qr);
+                        int CArp = Cost.get(Arp);
                         int min = Tools.min(CAqp, Dqr + CArp);
-                        C.put(Aqp, min);
+                        Cost.put(Aqp, min);
                     }
                 }
             }
@@ -68,16 +68,66 @@ public class Main {
                         String Aqp = Tools.genKey(A, q, p);
                         String Aqr = Tools.genKey(A, q, r);
                         String rp = Tools.genKey(r, p);
-                        int CAqp = C.get(Aqp);
-                        int Drp = D.get(rp);
-                        int CAqr = C.get(Aqr);
+                        int CAqp = Cost.get(Aqp);
+                        int Drp = Dst.get(rp);
+                        int CAqr = Cost.get(Aqr);
                         int min = Tools.min(CAqp, CAqr + Drp);
-                        C.put(Aqp, min);
+                        Cost.put(Aqp, min);
                     }
                 }
             }
         }
 
-        // TODO: 2022/11/11  
+        boolean updated = true;
+        while (updated) {
+            updated = false;
+            for (String q: states) {
+                for (String p: states) {
+                    for (String A: vns.keySet()) {
+                        String Aqp = Tools.genKey(A, q, p);
+                        ArrayList<ArrayList<Variable>> deductions = vns.get(A).getDeductions();
+                        for (ArrayList<Variable> deduction: deductions) {
+                            Variable first = deduction.get(0);
+                            if (first instanceof Vn && deduction.size() == 2) {
+                                String B = deduction.get(0).getName();
+                                String C = deduction.get(1).getName();
+                                for (String r: states) {
+                                    String Bqr = Tools.genKey(B, q, r);
+                                    String Crp = Tools.genKey(C, r, p);
+                                    int CApq = Cost.get(Aqp);
+                                    int min = Tools.min(CApq, Cost.get(Bqr) + Cost.get(Crp));
+                                    if (CApq > min) {
+                                        Cost.put(Aqp, min);
+                                        updated = true; // 如果Cost被更新
+                                    }
+                                }
+                            } else if (first instanceof Vn && deduction.size() == 1){
+                                String B = deduction.get(0).getName();
+                                String Bqp = Tools.genKey(B, q, p);
+                                int CApq = Cost.get(Aqp);
+                                int CBqp = Cost.get(Bqp);
+                                if (CApq > CBqp) {
+                                    Cost.put(Aqp, CBqp);
+                                    updated = true; // 如果Cost被更新
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        String S = cfg.getStart().getName();
+        String s = nfa.getStart();
+        LinkedHashSet<String> fList = nfa.getEnds();
+        int min = Integer.MAX_VALUE;
+        for (String f: fList) {
+            String Ssf = Tools.genKey(S, s, f);
+            if (min > Cost.get(Ssf)) {
+                min = Cost.get(Ssf);
+            }
+        }
+
+        System.out.println(min);
     }
 }
