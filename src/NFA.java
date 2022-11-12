@@ -38,4 +38,15 @@ public class NFA {
     public String getStart() {
         return start;
     }
+
+    @Override
+    public String toString() {
+        return "NFA{\n" +
+                "states=" + states +
+                "\nvts=" + vts +
+                "\nnfa=" + nfa +
+                "\nstart='" + start + '\'' +
+                "\nends=" + ends +
+                "\n}";
+    }
 }

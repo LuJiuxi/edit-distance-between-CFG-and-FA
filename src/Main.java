@@ -13,6 +13,8 @@ public class Main {
     public static void main(String[] args) {
         CFG cfg = Tools.initCFGFromFile("input.txt");
         NFA nfa = Tools.initNFAFromFile("input.txt");
+        System.out.println(cfg);
+        System.out.println(nfa);
 
         LinkedHashMap<String, Integer> Cost = new LinkedHashMap<>();
         LinkedHashMap<String, Integer> Dst = Tools.floydWarshall(nfa);
@@ -128,6 +130,6 @@ public class Main {
             }
         }
 
-        System.out.println(min);
+        System.out.println("edit distance between CFG and FA:" + min);
     }
 }
