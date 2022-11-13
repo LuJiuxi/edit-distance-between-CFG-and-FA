@@ -8,7 +8,7 @@
 import java.util.ArrayList;
 
 public class Vn extends Variable{
-    private final ArrayList<ArrayList<Variable>> deductions = new ArrayList<>();
+    private final ArrayList<ArrayList<Variable>> deductions = new ArrayList<>(); // 推导规则
 
     public Vn(String name) {
         super(name);

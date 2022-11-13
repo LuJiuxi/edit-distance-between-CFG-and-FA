@@ -20,6 +20,7 @@ public class Tools {
         int end = 1;
         int state = 0;
         line = myFileReader.readLine();
+        //一次读入一行
         do {
             switch (state) {
                 case 0:
@@ -27,41 +28,47 @@ public class Tools {
                         case "<VN>": state = 1; break;
                         case "<VT>": state = 2;break;
                         case "<R>": state = 3; break;
-                        case "<S>": state = 4; break;
+                        case "<START>": state = 4; break;
                         default:
                             System.out.println("CFG未定义的成员: " + line.trim());
                             System.exit(-1);
                     }
                     end += 1;
                     break;
-                case 1:
+                case 1: // <VN>
                     String[] vns = line.replaceAll("\\s", "").split(",");
                     for (String vn: vns) {
-                        cfg.getVns().put(vn, new Vn(vn));
+                        cfg.getVns().put(vn.substring(1,vn.length()-1), new Vn(vn));
                     }
                     break;
-                case 2:
+                case 2: // <VT>
                     String[] vts = line.replaceAll("\\s", "").split(",");
                     for (String vt: vts) {
                         cfg.getVts().put(vt, new Vt(vt));
                     }
                     break;
-                case 3:
+                case 3: // <R>
                     String[] r = line.replaceAll("\\s", "").split("-->");
                     if (r.length != 2) {
                         System.out.println("<R>格式错误: " + line.trim());
                         System.exit(-1);
                     }
-                    Vn vn = cfg.getVns().get(r[0]);
+                    Vn vn = cfg.getVns().get(r[0].substring(1,r[0].length() - 1));
                     ArrayList<Variable> deduction = new ArrayList<>();
-                    char[] chars = r[1].toCharArray();
-                    for (char c: chars) {
-                        deduction.add(cfg.getVariable(String.valueOf(c)));
+                    String[] right = r[1].replaceAll("<","").split(">");
+                    for(String str: right) {
+                        deduction.add(cfg.getVariable(str));
                     }
                     vn.addDeduction(deduction);
+//                    char[] chars = r[1].toCharArray();
+//                    for (char c: chars) {
+//                        deduction.add(cfg.getVariable(String.valueOf(c)));
+//                    }
+//                    vn.addDeduction(deduction);
                     break;
-                case 4:
-                    cfg.setStart(line.trim());
+                case 4: // <START>
+                    String start = line.replaceAll("\\s", "");
+                    cfg.setStart(start.substring(1, start.length() - 1));
                     break;
             }
             line = myFileReader.readLine();
@@ -74,6 +81,11 @@ public class Tools {
         return cfg;
     }
 
+    /**
+     *  读入NFA并且返回一个NFA对象
+     * @param path
+     * @return
+     */
     public static NFA initNFAFromFile(String path) {
         MyFileReader myFileReader = new MyFileReader(path);
         NFA nfa = new NFA();
@@ -84,6 +96,7 @@ public class Tools {
         int end = 1;
         int state = 0;
         line = myFileReader.readLine();
+        // 一次循环读入1行
         do {
             switch (state) {
                 case 0:
@@ -99,19 +112,19 @@ public class Tools {
                     }
                     end += 1;
                     break;
-                case 1:
+                case 1:  // <STATE>
                     String[] nfaStates = line.replaceAll("\\s", "").split(",");
                     for (String nfaState: nfaStates) {
                         nfa.getStates().add(nfaState);
                     }
                     break;
-                case 2:
+                case 2:  // <VT>
                     String[] vts = line.replaceAll("\\s", "").split(",");
                     for (String vt: vts) {
                         nfa.getVts().add(vt);
                     }
                     break;
-                case 3:
+                case 3:  // <STF>
                     String[] stf = line.replaceAll("\\s", "").split("=");
                     if (stf.length != 2) {
                         System.out.println("<STF>格式错误: " + line.trim());
