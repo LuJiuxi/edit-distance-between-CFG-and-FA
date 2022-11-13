@@ -10,6 +10,13 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 public class Tools {
+    /**
+     * @description: 从文件初始化CFG
+     * @param path:
+     * @return: CFG
+     * @author: LuJiuxi
+     * @date: 2022/11/13 15:45
+     */
     public static CFG initCFGFromFile(String path) {
         MyFileReader myFileReader = new MyFileReader(path);
         CFG cfg = new CFG();
@@ -38,7 +45,7 @@ public class Tools {
                 case 1: // <VN>
                     String[] vns = line.replaceAll("\\s", "").split(",");
                     for (String vn: vns) {
-                        cfg.getVns().put(vn.substring(1,vn.length()-1), new Vn(vn));
+                        cfg.getVns().put(vn.substring(1,vn.length()-1), new Vn(vn.substring(1,vn.length()-1)));
                     }
                     break;
                 case 2: // <VT>
@@ -60,11 +67,6 @@ public class Tools {
                         deduction.add(cfg.getVariable(str));
                     }
                     vn.addDeduction(deduction);
-//                    char[] chars = r[1].toCharArray();
-//                    for (char c: chars) {
-//                        deduction.add(cfg.getVariable(String.valueOf(c)));
-//                    }
-//                    vn.addDeduction(deduction);
                     break;
                 case 4: // <START>
                     String start = line.replaceAll("\\s", "");
@@ -82,9 +84,11 @@ public class Tools {
     }
 
     /**
-     *  读入NFA并且返回一个NFA对象
-     * @param path
-     * @return
+     * @description: 从文件初始化NFA
+     * @param path:
+     * @return: NFA
+     * @author: LuJiuxi
+     * @date: 2022/11/13 15:44
      */
     public static NFA initNFAFromFile(String path) {
         MyFileReader myFileReader = new MyFileReader(path);
