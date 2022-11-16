@@ -1,0 +1,62 @@
+<CFG>
+<VN>
+    <S111>, <Aa>, <B>, <C>, <Dddd>,<E1>,<E2>,<E3>,<E4>,<F>,<F1>,<F2>,<G>,<G1>,<G2>,<G3>
+<END>
+<VT>
+    aa, bbb, cccc, dd, ee1,e,eee4,ohhhh,fi,g1,gg2,ggg3,g0
+<END>
+<R>
+    <S111> --> <Aa><B><E1>
+    <Aa> --> <Aa><B>
+    <Aa> --> <B><C><Dddd>
+    <Aa> --> aa
+    <B> --> bbb
+    <C> --> cccc
+    <Dddd> --> <Aa>
+    <Dddd> --> dd
+    <E1> --> <E2><E3><E4>
+    <E2> --> <E3><E4><E4>
+    <E2> --> ee1
+    <E3> --> e
+    <E4> --> <E3><E3><G><F>
+    <E4> --> eee4
+    <F> --> <F1><F2><F1>
+    <F1> --> <F2><F2>
+    <F1> --> ohhhh
+    <F2> --> fi
+    <G> --> <G3><G2><G1>
+    <G> --> g0
+    <G1> --> <G2><G2>
+    <G1> --> g1
+    <G2> --> gg2
+    <G2> --> <G>
+    <G3> --> ggg3
+<END>
+<START>
+    <S111>
+<END>
+<END>
+
+
+<NFA>
+<STATE>
+    q0, q1, q2, q3, q4
+<END>
+<VT>
+    aa, bbb, cccc
+<END>
+<STF>
+    (q0, aa) = {q1}
+    (q1, aa) = {q1}
+    (q1, bbb) = {q1, q2}
+    (q2, cccc) = {q1, q4}
+    (q3, cccc) = {q2}
+    (q4, bbb) = {q3}
+<END>
+<START>
+    q0
+<END>
+<FINAL>
+    q3, q4
+<END>
+<END>
