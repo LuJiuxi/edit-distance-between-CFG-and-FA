@@ -1,0 +1,51 @@
+<CFG>
+<VN>
+    <S111>, <Aa>, <B>, <C>, <Dddd>,<E1>,<E2>,<E3>,<E4>
+<END>
+<VT>
+    aa, bbb, cccc, dd, ee1,e,eee4
+<END>
+<R>
+    <S111> --> <Aa><B><E1>
+    <Aa> --> <Aa><B>
+    <Aa> --> <B><C><Dddd>
+    <Aa> --> aa
+    <B> --> bbb
+    <C> --> cccc
+    <Dddd> --> <Aa>
+    <Dddd> --> dd
+    <E1> --> <E2><E3><E4>
+    <E2> --> <E3><E4><E4>
+    <E2> --> ee1
+    <E3> --> e
+    <E4> --> <E3><E3>
+    <E4> -->eee4
+<END>
+<START>
+    <S111>
+<END>
+<END>
+
+
+<NFA>
+<STATE>
+    q0, q1, q2, q3, q4
+<END>
+<VT>
+    aa, bbb, cccc
+<END>
+<STF>
+    (q0, aa) = {q1}
+    (q1, aa) = {q1}
+    (q1, bbb) = {q1, q2}
+    (q2, cccc) = {q1, q4}
+    (q3, cccc) = {q2}
+    (q4, bbb) = {q3}
+<END>
+<START>
+    q0
+<END>
+<FINAL>
+    q3, q4
+<END>
+<END>
