@@ -11,8 +11,8 @@ import java.util.LinkedHashSet;
 
 public class Main {
     public static void main(String[] args) {
-        CFG cfg = Tools.initCFGFromFile("input3.txt");
-        NFA nfa = Tools.initNFAFromFile("input3.txt");
+        CFG cfg = Tools.initCFGFromFile("input4.txt");
+        NFA nfa = Tools.initNFAFromFile("input4.txt");
 //        System.out.println(cfg);
 //        System.out.println(nfa);
 

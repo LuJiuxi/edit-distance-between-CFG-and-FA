@@ -6,16 +6,16 @@
     aa, bbb, cccc, dd, ee1,e,eee4
 <END>
 <R>
-    <S111> --> <Aa><B><E1>
+    <S111> --> <Aa><E1>
     <Aa> --> <Aa><B>
-    <Aa> --> <B><C><Dddd>
+    <Aa> --> <C><Dddd>
     <Aa> --> aa
     <B> --> bbb
     <C> --> cccc
     <Dddd> --> <Aa>
     <Dddd> --> dd
-    <E1> --> <E2><E3><E4>
-    <E2> --> <E3><E4><E4>
+    <E1> --> <E2><E3>
+    <E2> --> <E3><E4>
     <E2> --> ee1
     <E3> --> e
     <E4> --> <E3><E3>

@@ -6,30 +6,30 @@
     aa, bbb, cccc, dd, ee1,e,eee4,ohhhh,fi,g1,gg2,ggg3,g0
 <END>
 <R>
-    <S111> --> <Aa><B>
-    <Aa> --> <Aa><B>
+    <S111> --> <Aa><E1>
+    <Aa> --> <Dddd><B>
     <Aa> --> <B><C>
     <Aa> --> aa
     <B> --> bbb
     <C> --> cccc
-    <Dddd> --> <Aa>
     <Dddd> --> dd
-    <E1> --> <E2><E3><E4>
-    <E2> --> <E3><E4><E4>
+    <E1> --> <E2><E3>
+    <E2> --> <E3><E4>
     <E2> --> ee1
     <E3> --> e
-    <E4> --> <E3><E3><G><F>
+    <E4> --> <G><F>
+    <E4> --> <E3><E3>
     <E4> --> eee4
-    <F> --> <F1><F2><F1>
+    <F> --> <F1><F2>
     <F1> --> <F2><F2>
     <F1> --> ohhhh
     <F2> --> fi
-    <G> --> <G3><G2><G1>
+    <G> --> <G3><G2>
+    <G> --> <G1><G3>
     <G> --> g0
     <G1> --> <G2><G2>
     <G1> --> g1
     <G2> --> gg2
-    <G2> --> <G>
     <G3> --> ggg3
 <END>
 <START>
