@@ -11,10 +11,13 @@ import java.util.LinkedHashSet;
 
 public class Main {
     public static void main(String[] args) {
-        CFG cfg = Tools.initCFGFromFile("input.txt");
-        NFA nfa = Tools.initNFAFromFile("input.txt");
-        System.out.println(cfg);
-        System.out.println(nfa);
+        CFG cfg = Tools.initCFGFromFile("input3.txt");
+        NFA nfa = Tools.initNFAFromFile("input3.txt");
+//        System.out.println(cfg);
+//        System.out.println(nfa);
+
+        System.out.println("开始计算...");
+        long start = System.currentTimeMillis();
 
         LinkedHashMap<String, Integer> Cost = new LinkedHashMap<>();
         LinkedHashMap<String, Integer> Dst = Tools.floydWarshall(nfa);
@@ -130,6 +133,8 @@ public class Main {
             }
         }
 
+        long end = System.currentTimeMillis();
+        System.out.println("运行时间：" + (end - start) + "(ms)");
         System.out.println("edit distance between CFG and FA:" + min);
     }
 }

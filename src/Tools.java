@@ -63,6 +63,10 @@ public class Tools {
                     Vn vn = cfg.getVns().get(r[0].substring(1,r[0].length() - 1));
                     ArrayList<Variable> deduction = new ArrayList<>();
                     String[] right = r[1].replaceAll("<","").split(">");
+                    if (right.length > 2) {
+                        System.out.println("CFG不符合范式: " + line.trim());
+                        System.exit(-1);
+                    }
                     for(String str: right) {
                         deduction.add(cfg.getVariable(str));
                     }
@@ -139,6 +143,10 @@ public class Tools {
                     String inputStr = input[1];
                     String[] output = stf[1].substring(1, stf[1].length() - 1).split(",");
                     for (String endState: output) {
+                        if (!nfa.getVts().contains(inputStr)) {
+                            System.out.println("<STF>未定义的终结符: " + line.trim());
+                            System.exit(-1);
+                        }
                         nfa.getNfa().put(genKey(beginState, endState), inputStr);
                     }
                     break;

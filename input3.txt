@@ -6,9 +6,9 @@
     aa, bbb, cccc, dd, ee1,e,eee4,ohhhh,fi,g1,gg2,ggg3,g0
 <END>
 <R>
-    <S111> --> <Aa><B><E1>
+    <S111> --> <Aa><B>
     <Aa> --> <Aa><B>
-    <Aa> --> <B><C><Dddd>
+    <Aa> --> <B><C>
     <Aa> --> aa
     <B> --> bbb
     <C> --> cccc

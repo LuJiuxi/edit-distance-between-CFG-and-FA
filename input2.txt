@@ -3,24 +3,24 @@
     <S111>, <Aa>, <B>, <C>, <Dddd>,<E1>,<E2>,<E3>,<E4>,<F>,<F1>,<F2>
 <END>
 <VT>
-    aa, bbb, cccc, dd, ee1,e,eee4,ohhhh,fi
+    aa, bbb, cccc, d, ee1,e,eee4,ohhhh,fi
 <END>
 <R>
-    <S111> --> <Aa><B><E1>
+    <S111> --> <Aa><B>
     <Aa> --> <Aa><B>
-    <Aa> --> <B><C><Dddd>
+    <Aa> --> <B><C>
     <Aa> --> aa
     <B> --> bbb
     <C> --> cccc
     <Dddd> --> <Aa>
-    <Dddd> --> dd
-    <E1> --> <E2><E3><E4>
-    <E2> --> <E3><E4><E4>
+    <Dddd> --> d
+    <E1> --> <E2><E3>
+    <E2> --> <E3><E4>
     <E2> --> ee1
     <E3> --> e
-    <E4> --> <E3><E3><F>
+    <E4> --> <E3><E3>
     <E4> --> eee4
-    <F> --> <F1><F2><F1>
+    <F> --> <F1><F2>
     <F1> --> <F2><F2>
     <F1> --> ohhhh
     <F2> --> fi

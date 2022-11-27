@@ -25,15 +25,15 @@
     q0, q1, q2, q3, q4
 <END>
 <VT>
-    aa, bbb, cccc
+    dd, eee, ffff
 <END>
 <STF>
-    (q0, aa) = {q1}
-    (q1, aa) = {q1}
-    (q1, bbb) = {q1, q2}
-    (q2, cccc) = {q1, q4}
-    (q3, cccc) = {q2}
-    (q4, bbb) = {q3}
+    (q0, dd) = {q1}
+    (q1, dd) = {q1}
+    (q1, eee) = {q1, q2}
+    (q2, ffff) = {q1, q4}
+    (q3, ffff) = {q2}
+    (q4, eee) = {q3}
 <END>
 <START>
     q0
