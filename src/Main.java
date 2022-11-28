@@ -11,8 +11,8 @@ import java.util.LinkedHashSet;
 
 public class Main {
     public static void main(String[] args) {
-        CFG cfg = Tools.initCFGFromFile("input4.txt");
-        NFA nfa = Tools.initNFAFromFile("input4.txt");
+        CFG cfg = Tools.initCFGFromFile("input5.txt");
+        NFA nfa = Tools.initNFAFromFile("input5.txt");
 //        System.out.println(cfg);
 //        System.out.println(nfa);
 
@@ -24,7 +24,7 @@ public class Main {
         LinkedHashMap<String, String> nfaGraph = nfa.getNfa();
         LinkedHashSet<String> states = nfa.getStates();
         LinkedHashMap<String, Vn> vns = cfg.getVns();
-        // 初始化C
+        // 初始化Cost
         for (String q: states) {
             for (String p: states) {
                 for (String A: vns.keySet()) {
@@ -99,9 +99,9 @@ public class Main {
                                 for (String r: states) {
                                     String Bqr = Tools.genKey(B, q, r);
                                     String Crp = Tools.genKey(C, r, p);
-                                    int CApq = Cost.get(Aqp);
-                                    int min = Tools.min(CApq, Cost.get(Bqr) + Cost.get(Crp));
-                                    if (CApq > min) {
+                                    int CAqp = Cost.get(Aqp);
+                                    int min = Tools.min(CAqp, Cost.get(Bqr) + Cost.get(Crp));
+                                    if (CAqp > min) {
                                         Cost.put(Aqp, min);
                                         updated = true; // 如果Cost被更新
                                     }
@@ -136,5 +136,7 @@ public class Main {
         long end = System.currentTimeMillis();
         System.out.println("运行时间：" + (end - start) + "(ms)");
         System.out.println("edit distance between CFG and FA:" + min);
+
+        System.out.println(Tools.cost("acb", "abc"));
     }
 }

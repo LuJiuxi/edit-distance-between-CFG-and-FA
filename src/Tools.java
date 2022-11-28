@@ -167,6 +167,9 @@ public class Tools {
                 line = myFileReader.readLine();
             }
         } while (end != 0);
+        for(String s : nfa.getStates()) {
+            nfa.getNfa().put(genKey(s,s), "");
+        }
         return nfa;
     }
 
@@ -176,6 +179,8 @@ public class Tools {
         char[] s = (" " + str0).toCharArray();
         char[] t = (" " + str1).toCharArray();
         int[][] d = new int[n + 1][m + 1];
+        for(int i = 0; i <= m;i++) d[0][i] = i;
+        for(int i =0; i <= n;i++) d[i][0] = i;
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
                 int c = 0;
@@ -206,7 +211,10 @@ public class Tools {
                 if (graph.containsKey(key)) {
                     d.put(key, graph.get(key).length());
                 } else {
-                    d.put(key, Integer.MAX_VALUE >> 2);
+                    if (si.equals(sj))
+                        d.put(key, 0);
+                    else
+                        d.put(key, Integer.MAX_VALUE >> 2);
                 }
             }
         }

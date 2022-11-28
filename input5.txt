@@ -1,0 +1,39 @@
+<CFG>
+<VN>
+    <S>, <A>, <B>, <C>
+<END>
+<VT>
+    a, b, c
+<END>
+<R>
+    <S> --> <A><B>
+    <A> --> <A><B>
+    <B> --> <B><C>
+    <A> --> a
+    <B> --> b
+    <C> --> c
+<END>
+<START>
+    <S>
+<END>
+<END>
+
+<NFA>
+<STATE>
+    q0, q1, q2, q3
+<END>
+<VT>
+    a, b, c
+<END>
+<STF>
+    (q0, a) = {q1}
+    (q1, b) = {q2}
+    (q2, c) = {q3}
+<END>
+<START>
+    q0
+<END>
+<FINAL>
+    q3
+<END>
+<END>
